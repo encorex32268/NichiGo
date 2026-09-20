@@ -1,15 +1,37 @@
 *.iml
 .gradle
 /local.properties
+local.properties
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+.kotlin/
 .DS_Store
+Thumbs.db
 /build
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Java / Kotlin class files
+*.class
+*.dex
+
+# Log files
+*.log
+
+# Signing keys
+*.jks
+*.keystore
+
+# Agent / AI local workspace configuration
+.agent/
