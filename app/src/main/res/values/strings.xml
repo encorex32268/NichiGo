@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">NichiGo</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">首頁</string>
+    <string name="nav_calendar">日曆</string>
+
+    <!-- Task Home Screen -->
+    <string name="home_progress_tag">今日進度</string>
+    <string name="home_title">Today</string>
+    <string name="home_completed_count_fmt">已完成 %1$d 個任務，共 %2$d 項</string>
+    <string name="home_empty_title">今日尚無任務</string>
+    <string name="home_empty_desc">點擊右下角按鈕新增您的第一個任務吧！</string>
+    <string name="create_task_fab">新增任務</string>
+    <string name="task_toggle_complete">切換任務完成狀態</string>
+
+    <!-- Calendar Screen -->
+    <string name="calendar_title">日曆</string>
+    <string name="calendar_prev_month">上個月</string>
+    <string name="calendar_next_month">下個月</string>
+    <string name="calendar_selected_date_fmt">%1$s 任務達成狀態</string>
+    <string name="calendar_empty_day">本日無排程任務</string>
+
+    <!-- Create Task Screen -->
+    <string name="create_task_title">新增任務</string>
+    <string name="create_task_close">關閉</string>
+    <string name="create_task_name_label">任務名稱</string>
+    <string name="create_task_name_placeholder">例如：記 100 個日文單詞、每日核心訓練</string>
+    <string name="create_task_freq_label">重複週期</string>
+    <string name="create_task_freq_daily">每日</string>
+    <string name="create_task_freq_interval">間隔天數</string>
+    <string name="create_task_freq_weekly">每週指定日</string>
+    <string name="create_task_interval_days_fmt">每 %1$d 天</string>
+    <string name="create_task_days_of_week">指定星期</string>
+    <string name="day_mon">一</string>
+    <string name="day_tue">二</string>
+    <string name="day_wed">三</string>
+    <string name="day_thu">四</string>
+    <string name="day_fri">五</string>
+    <string name="day_sat">六</string>
+    <string name="day_sun">日</string>
+    <string name="create_task_hashtag_label">分類標籤</string>
+    <string name="create_task_search_tag_placeholder">搜尋或自訂標籤</string>
+    <string name="create_task_add_tag_btn">新增</string>
+    <string name="create_task_add_tag_fmt">+ 新增「#%1$s」</string>
+    <string name="common_clear">清除</string>
+    <string name="create_task_preview_label">卡片即時預覽</string>
+    <string name="create_task_char_counter">%1$d/30</string>
+    <string name="create_task_color_label">卡片主題色</string>
+    <string name="create_task_submit">建立任務</string>
+
+    <!-- Errors -->
+    <string name="error_disk_full">儲存空間不足</string>
+    <string name="error_not_found">找不到資料</string>
+    <string name="error_unknown">發生未預期的錯誤</string>
+</resources>
