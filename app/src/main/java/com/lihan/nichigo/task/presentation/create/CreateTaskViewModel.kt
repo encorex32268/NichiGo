@@ -2,8 +2,10 @@ package com.lihan.nichigo.task.presentation.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lihan.nichigo.R
 import com.lihan.nichigo.core.domain.util.onError
 import com.lihan.nichigo.core.domain.util.onSuccess
+import com.lihan.nichigo.core.presentation.util.UiText
 import com.lihan.nichigo.task.domain.model.Period
 import com.lihan.nichigo.task.domain.model.PeriodType
 import com.lihan.nichigo.task.domain.repository.TaskRepository
@@ -50,14 +52,20 @@ class CreateTaskViewModel(
         when (action) {
             is CreateTaskAction.OnTitleChange -> {
                 if (action.title.length <= 30) {
-                    _state.update { it.copy(title = action.title) }
+                    _state.update { it.copy(title = action.title, titleError = null) }
                 }
             }
             is CreateTaskAction.OnPeriodTypeChange -> {
                 _state.update { it.copy(periodType = action.type) }
             }
             is CreateTaskAction.OnIntervalDaysChange -> {
-                _state.update { it.copy(intervalDays = action.days.coerceAtLeast(1)) }
+                _state.update { it.copy(intervalDays = action.days.coerceIn(2, 14)) }
+            }
+            is CreateTaskAction.OnStepInterval -> {
+                _state.update { current ->
+                    val newDays = (current.intervalDays + action.delta).coerceIn(2, 14)
+                    current.copy(intervalDays = newDays)
+                }
             }
             is CreateTaskAction.OnToggleDayOfWeek -> {
                 _state.update { current ->
@@ -68,6 +76,11 @@ class CreateTaskViewModel(
                         newDays.add(action.dayOfWeek)
                     }
                     current.copy(selectedDaysOfWeek = newDays)
+                }
+            }
+            is CreateTaskAction.OnSelectQuickWeekdays -> {
+                if (action.days.isNotEmpty()) {
+                    _state.update { it.copy(selectedDaysOfWeek = action.days) }
                 }
             }
             is CreateTaskAction.OnToggleTag -> {
@@ -87,13 +100,24 @@ class CreateTaskViewModel(
             CreateTaskAction.OnAddNewTag -> {
                 val input = _state.value.newTagInput.trim().removePrefix("#")
                 if (input.isNotBlank()) {
-                    viewModelScope.launch {
-                        taskRepository.insertHashTag(input).onSuccess { createdTag ->
-                            _state.update { current ->
-                                current.copy(
-                                    newTagInput = "",
-                                    selectedTags = current.selectedTags + createdTag
-                                )
+                    val current = _state.value
+                    val existingTag = current.availableTags.find { it.title.equals(input, ignoreCase = true) }
+                    if (existingTag != null) {
+                        _state.update {
+                            it.copy(
+                                newTagInput = "",
+                                selectedTags = it.selectedTags + existingTag
+                            )
+                        }
+                    } else {
+                        viewModelScope.launch {
+                            taskRepository.insertHashTag(input).onSuccess { createdTag ->
+                                _state.update { latest ->
+                                    latest.copy(
+                                        newTagInput = "",
+                                        selectedTags = latest.selectedTags + createdTag
+                                    )
+                                }
                             }
                         }
                     }
@@ -105,17 +129,28 @@ class CreateTaskViewModel(
             CreateTaskAction.OnSubmit -> {
                 val currentState = _state.value
                 val title = currentState.title.trim()
-                if (title.isBlank()) return
+                if (title.isBlank()) {
+                    _state.update { it.copy(titleError = UiText.StringResource(R.string.create_task_title_required)) }
+                    return
+                }
 
                 viewModelScope.launch {
-                    _state.update { it.copy(isSaving = true) }
+                    _state.update { it.copy(isSaving = true, error = null) }
 
                     val displayTitle = when (currentState.periodType) {
                         PeriodType.DAILY -> "每日"
                         PeriodType.INTERVAL -> "每 ${currentState.intervalDays} 天"
                         PeriodType.WEEKLY -> {
-                            val dayNames = mapOf(1 to "一", 2 to "二", 3 to "三", 4 to "四", 5 to "五", 6 to "六", 7 to "日")
-                            currentState.selectedDaysOfWeek.sorted().mapNotNull { dayNames[it] }.joinToString("、")
+                            val sorted = currentState.selectedDaysOfWeek.sorted()
+                            when {
+                                sorted.size == 7 -> "每日"
+                                sorted == listOf(1, 2, 3, 4, 5) -> "平日"
+                                sorted == listOf(6, 7) -> "週末"
+                                else -> {
+                                    val dayNames = mapOf(1 to "一", 2 to "二", 3 to "三", 4 to "四", 5 to "五", 6 to "六", 7 to "日")
+                                    sorted.mapNotNull { dayNames[it] }.joinToString("、")
+                                }
+                            }
                         }
                     }
 
@@ -136,7 +171,7 @@ class CreateTaskViewModel(
                         _state.update { it.copy(isSaving = false) }
                         _eventChannel.send(CreateTaskEvent.TaskCreatedSuccess)
                     }.onError {
-                        _state.update { it.copy(isSaving = false) }
+                        _state.update { it.copy(isSaving = false, error = UiText.StringResource(R.string.error_unknown)) }
                     }
                 }
             }

@@ -18,5 +18,6 @@ data class CreateTaskState(
     val selectedColor: Long = MacaronPalette.first(),
     val availableColors: List<Long> = MacaronPalette,
     val isSaving: Boolean = false,
+    val titleError: UiText? = null,
     val error: UiText? = null
 )

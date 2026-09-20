@@ -40,14 +40,22 @@
     <string name="day_sat">六</string>
     <string name="day_sun">日</string>
     <string name="create_task_hashtag_label">分類標籤</string>
+    <string name="create_task_available_tags">推薦標籤</string>
     <string name="create_task_search_tag_placeholder">搜尋或自訂標籤</string>
     <string name="create_task_add_tag_btn">新增</string>
     <string name="create_task_add_tag_fmt">+ 新增「#%1$s」</string>
     <string name="common_clear">清除</string>
     <string name="create_task_preview_label">卡片即時預覽</string>
+    <string name="create_task_preview_placeholder">任務名稱預覽</string>
     <string name="create_task_char_counter">%1$d/30</string>
     <string name="create_task_color_label">卡片主題色</string>
     <string name="create_task_submit">建立任務</string>
+    <string name="create_task_title_required">請輸入任務名稱</string>
+    <string name="create_task_quick_weekdays">平日</string>
+    <string name="create_task_quick_weekends">週末</string>
+    <string name="create_task_quick_all">全選</string>
+    <string name="create_task_step_decrease">減少天數</string>
+    <string name="create_task_step_increase">增加天數</string>
 
     <!-- Errors -->
     <string name="error_disk_full">儲存空間不足</string>
