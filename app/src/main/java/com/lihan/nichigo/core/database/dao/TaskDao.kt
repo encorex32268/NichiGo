@@ -1,16 +1,16 @@
-package com.lihan.nichigo.task.data.database.dao
+package com.lihan.nichigo.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.lihan.nichigo.task.data.database.entity.HashTagEntity
-import com.lihan.nichigo.task.data.database.entity.PeriodEntity
-import com.lihan.nichigo.task.data.database.entity.TaskCompletionEntity
-import com.lihan.nichigo.task.data.database.entity.TaskEntity
-import com.lihan.nichigo.task.data.database.entity.TaskHashTagCrossRef
-import com.lihan.nichigo.task.data.database.entity.TaskWithDetails
+import com.lihan.nichigo.core.database.entity.HashTagEntity
+import com.lihan.nichigo.core.database.entity.PeriodEntity
+import com.lihan.nichigo.core.database.entity.TaskCompletionEntity
+import com.lihan.nichigo.core.database.entity.TaskEntity
+import com.lihan.nichigo.core.database.entity.TaskHashTagCrossRef
+import com.lihan.nichigo.core.database.entity.TaskWithDetails
 import kotlinx.coroutines.flow.Flow
 
 @Dao

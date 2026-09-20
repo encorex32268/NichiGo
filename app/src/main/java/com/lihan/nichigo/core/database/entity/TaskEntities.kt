@@ -1,4 +1,4 @@
-package com.lihan.nichigo.task.data.database.entity
+package com.lihan.nichigo.core.database.entity
 
 import androidx.room.Embedded
 import androidx.room.Entity

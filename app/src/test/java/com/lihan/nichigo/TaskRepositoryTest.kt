@@ -1,12 +1,12 @@
 package com.lihan.nichigo
 
-import com.lihan.nichigo.task.data.database.entity.HashTagEntity
-import com.lihan.nichigo.task.data.database.entity.PeriodEntity
-import com.lihan.nichigo.task.data.database.entity.TaskEntity
-import com.lihan.nichigo.task.data.database.entity.TaskWithDetails
-import com.lihan.nichigo.task.data.database.mapper.toDomain
-import com.lihan.nichigo.task.data.database.mapper.toEntity
-import com.lihan.nichigo.task.data.database.mapper.toTaskCard
+import com.lihan.nichigo.core.database.entity.HashTagEntity
+import com.lihan.nichigo.core.database.entity.PeriodEntity
+import com.lihan.nichigo.core.database.entity.TaskEntity
+import com.lihan.nichigo.core.database.entity.TaskWithDetails
+import com.lihan.nichigo.task.data.mapper.toDomain
+import com.lihan.nichigo.task.data.mapper.toEntity
+import com.lihan.nichigo.task.data.mapper.toTaskCard
 import com.lihan.nichigo.task.data.repository.TaskRepositoryImpl
 import com.lihan.nichigo.task.domain.model.Period
 import com.lihan.nichigo.task.domain.model.PeriodType
